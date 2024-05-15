@@ -24,7 +24,8 @@ function main() {
 
   $('#years').addEventListener('input', updateTable);
 
-  $('#submit-and-continue').addEventListener('click', () => {
+  $('#submit-and-continue').addEventListener('click', (evt) => {
+      evt.preventDefault();
     STATE.submitted = true;
     $('#submit-and-continue').disabled = true;
   });
