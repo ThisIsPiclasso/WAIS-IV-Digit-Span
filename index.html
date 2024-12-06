@@ -13,11 +13,11 @@
 
   <body>
     <h2>WAIS-IV — Digit Span</h2>
-    <h6>random</h6>
+    <h6> </h6>
     <div id="container">
       <input id="lang" oninput="globalThis.lang = this.value;" placeholder="en-US" value="en-US" />
 
-      <a href="https://www.andiamo.co.uk/resources/iso-language-codes/" target="_">Codes</a>
+      <a id="langlink" href="https://www.andiamo.co.uk/resources/iso-language-codes/" target="_">Codes</a>
       <br />
       <button id="play" data-clicked="false">PLAY</button>
       <form>
@@ -30,7 +30,8 @@
       <div><label for="years">Your age in years:</label><input id="years" type="number" value="16" step="1" min="16"
           max="79" /></div>
       <div>
-        <table>
+        <button id="show-scores">Show Scores</button>
+        <table id="scores-table">
           <caption>Your Scores</caption>
           <thead>
             <tr>
