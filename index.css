@@ -105,4 +105,11 @@ h6 {
 #lang {
   text-align: right;
   width: 3em;
+  display: none;
+}
+#langlink{
+  display: none;
+}
+#scores-table {
+  display: none; /* Initially hide the table */
 }

@@ -1,6 +1,15 @@
 import { generate_forward, generate_backward, generate_sequencing } from './sequences.js';
 import { SCORE } from './score.js';
 import { SCALED_SCORES } from './scaled-scores.js';
+const conditional = false
+const Starting_0 = "Welcome to the Digit span test. The aim of this test is to gauge your memory."
+const Starting_01 = "Your results will be documented and examined after the test."
+// pcr
+const Starting_1 = "If your scores exceed the mandatory threshold, You will recieve a reward."
+// unconditional
+const Starting_2 = "Upon completion of the test you will recieve a reward"
+//custom ending instructions
+const Ending = "The test is now complete, please wait for further instructions from the researchers"
 
 globalThis.STATE = {
   submitted: false,
@@ -17,6 +26,16 @@ const $$ = function (selector) {
 
 document.addEventListener('DOMContentLoaded', main);
 
+document.getElementById("show-scores").addEventListener("click", function () {
+  const scoresTable = document.getElementById("scores-table");
+  if (scoresTable.style.display === "none" || scoresTable.style.display === "") {
+    scoresTable.style.display = "table"; // Show the table
+    this.textContent = "Hide Scores"; // Update button text
+  } else {
+    scoresTable.style.display = "none"; // Hide the table
+    this.textContent = "Show Scores"; // Reset button text
+  }
+});
 function main() {
   updateTable();
 
@@ -53,7 +72,19 @@ function main() {
     }
 
     $('#play').dataset.clicked = 'true';
-
+    STATE.prompt = Starting_0;
+    await speak(STATE.prompt, 0.75);
+    await waitFor(150);
+    STATE.prompt = Starting_01;
+    await speak(STATE.prompt, 0.75);
+    await waitFor(200);
+    if (conditional) {
+      STATE.prompt = Starting_1;
+    } else {
+      STATE.prompt = Starting_2;
+    }
+    await speak(STATE.prompt, 0.75);
+    await waitFor(200);
     /** Forward. */
     STATE.prompt =
       "I will now say some numbers. Listen attentively since I can't repeat them. Whenever I've finished saying them, I ask that you type them in the box below in the same order that I told them to you.";
@@ -195,7 +226,8 @@ function main() {
         }
       }
     }
-
+    STATE.prompt = Ending;
+    await speak(STATE.prompt, 0.75);
     $('#play').disabled = true;
     $('#submission').disabled = true;
     $('#submit-and-continue').disabled = true;

@@ -1,3 +1,4 @@
+const RANDOM = false;
 Array.prototype.pop = function (index = -1) {
   return this.splice(index < 0 ? this.length + index : index, 1)[0];
 };
@@ -68,6 +69,11 @@ const BASED_SEQUENCING = [
 ];
 
 function generate(based_array, digits) {
+  if (!RANDOM) {
+    // Use the predefined based_array directly if RANDOM is false
+    return based_array;
+  }
+
   let r = [];
   for (let i = 0, n = based_array.length; i < n; ++i) {
     let a = [], d = new Map(), ds = randomShuffle(digits.slice());
